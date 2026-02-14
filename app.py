@@ -19,6 +19,9 @@ df = pd.read_csv(uploaded_file)
 st.write("### Data Preview")
 st.dataframe(df)
 
+st.write("""content")
+st.write(df)
+
 """
 for fn in uploaded_file.keys():
   print(f'User uploaded file "{fn}"')
