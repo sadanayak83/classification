@@ -7,9 +7,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 
-def load_data(data):
-    X = data['data']
-    y = data['target']
+def load_data(df):
+    df['target'] = (df['quality'] >= 7).astype(int)
+    X = df.drop(['quality', 'target'], axis=1)
+    y = df['target']
     return train_test_split(X, y, test_size=0.2, random_state=42)
 
 def train_models(X_train, y_train):
