@@ -15,7 +15,10 @@ if uploaded_file is None:
     st.stop()
 
 df = pd.read_csv(uploaded_file)
-print(df.head())
+
+st.write("### Data Preview")
+st.dataframe(df)
+
 """
 for fn in uploaded_file.keys():
   print(f'User uploaded file "{fn}"')
