@@ -1,5 +1,4 @@
-#from sklearn.datasets import load_iris
-#from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -8,11 +7,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 
-def load_data():
-    #iris = load_iris()
-    #X = iris.data
-    #y = iris.target
-    return "true"#train_test_split(X, y, test_size=0.2, random_state=42)
+def load_data(data):
+    X = data['data']
+    y = data['target']
+    return train_test_split(X, y, test_size=0.2, random_state=42)
 
 def train_models(X_train, y_train):
     scaler = StandardScaler()
@@ -26,7 +24,7 @@ def train_models(X_train, y_train):
         'Random Forest': RandomForestClassifier(),
         'XGBoost': xgb.XGBClassifier(eval_metric='mlogloss')
     }
-```
+
     # Train models
     models['Logistic Regression'].fit(X_train_scaled, y_train)
     models['Decision Tree'].fit(X_train, y_train)
@@ -34,5 +32,5 @@ def train_models(X_train, y_train):
     models['Naive Bayes'].fit(X_train, y_train)
     models['Random Forest'].fit(X_train, y_train)
     models['XGBoost'].fit(X_train, y_train)
-```
+
     return scaler, models

@@ -1,19 +1,29 @@
-#Streamlit app code
-
+# This is an streamlit app for Multiple Classification Models
 import streamlit as st
 import numpy as np
-from model.models import load_data, train_models
+import pandas as pd
+from models import load_data, train_models
 
 st.title("Multiple Classification Models")
 
 st.write(
     """
-    Choose a model on the sidebar and set your flower measurements.
+    Choose an input CSV file.
+    """
+)
+# File uploader widget
+uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+
+df = pd.read_csv(uploaded_file)
+
+st.write(
+    """
+    Choose a model on the sidebar and set input parameters.
     """
 )
 
 # Train models
-X_train, X_test, y_train, y_test = load_data()
+X_train, X_test, y_train, y_test = load_data(df)
 scaler, models = train_models(X_train, y_train)
 
 model_names = list(models.keys())
@@ -31,7 +41,7 @@ def user_input():
 
 input_features = user_input()
 
-# Know which models need scaling
+# Check if scaling needed
 scale_needed = selected_model_name in ['Logistic Regression', 'K-Nearest Neighbor']
 
 if scale_needed:
