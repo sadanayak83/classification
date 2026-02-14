@@ -4,21 +4,21 @@ import numpy as np
 import pandas as pd
 from model.models import load_data, train_models
 
-st.title("Multiple Classification Models")
+st.title("Multiple Classification Models : Interactive app to demonstrate models")
 
-st.write(
-    """
-    Choose an input CSV file.
-    """
-)
 # File uploader widget
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+uploaded_file = st.file_uploader("Choose input CSV file", type="csv")
 
 if uploaded_file is None:
     st.info("Upload a CSV to begin.")
     st.stop()
 
-df = pd.read_csv(uploaded_file)
+for fn in uploaded_file.keys():
+  print(f'User uploaded file "{fn}"')
+  # Read the bytes into a pandas DataFrame using io.StringIO
+  df = pd.read_csv(io.StringIO(uploaded[fn].decode('utf-8')), sep=';')
+  # You can now work with the 'df' DataFrame, e.g., print the first few rows:
+  print(df.head())
 
 st.write(
     """
@@ -36,23 +36,8 @@ st.sidebar.header('Select Model')
 selected_model_name = st.sidebar.selectbox('Classification Model', model_names)
 model = models[selected_model_name]
 
-def user_input():
-    sepal_length = st.sidebar.slider('Sepal length (cm)', 4.0, 8.0, 5.1)
-    sepal_width = st.sidebar.slider('Sepal width (cm)', 2.0, 4.5, 3.5)
-    petal_length = st.sidebar.slider('Petal length (cm)', 1.0, 7.0, 1.4)
-    petal_width = st.sidebar.slider('Petal width (cm)', 0.1, 2.5, 0.2)
-    return np.array([[sepal_length, sepal_width, petal_length, petal_width]])
+X_test_scaled = scaler.transform(X_test)
 
-input_features = user_input()
+prediction = model.predict(X_test)
 
-# Check if scaling needed
-scale_needed = selected_model_name in ['Logistic Regression', 'K-Nearest Neighbor']
-
-if scale_needed:
-    input_features_scaled = scaler.transform(input_features)
-    prediction = model.predict(input_features_scaled)
-else:
-    prediction = model.predict(input_features)
-
-species = ['Setosa', 'Versicolor', 'Virginica']
-st.success(f"Predicted class: **{species[prediction[0]]}**")
+print(prediction)
