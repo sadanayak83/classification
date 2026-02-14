@@ -14,6 +14,10 @@ st.write(
 # File uploader widget
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
+if uploaded_file is None:
+    st.info("Upload a CSV to begin.")
+    st.stop()
+
 df = pd.read_csv(uploaded_file)
 
 st.write(
