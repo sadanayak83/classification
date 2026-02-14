@@ -1,6 +1,5 @@
-from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -8,10 +7,12 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 
-def load_data():
-    iris = load_iris()
-    X = iris.data
-    y = iris.target
+def load_data(data):
+    data['quality_label'] = (data['quality'] >= 6).astype(int)
+    X = data.drop(['quality', 'quality_label'], axis=1)
+    y = data['quality_label']
+
+    # Train/test split
     return train_test_split(X, y, test_size=0.2, random_state=42)
 
 def train_models(X_train, y_train):
