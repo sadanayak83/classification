@@ -2,7 +2,7 @@
 
 import streamlit as st
 import numpy as np
-from models import load_data, train_models
+from model.models import load_data, train_models
 
 st.title("Multiple Classification Models")
 
