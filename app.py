@@ -14,13 +14,16 @@ if uploaded_file is None:
     st.info("Upload a CSV to begin.")
     st.stop()
 
+df = pd.read_csv(uploaded_file)
+print(df.head())
+"""
 for fn in uploaded_file.keys():
   print(f'User uploaded file "{fn}"')
   # Read the bytes into a pandas DataFrame using io.StringIO
   df = pd.read_csv(io.StringIO(uploaded[fn].decode('utf-8')), sep=';')
   # You can now work with the 'df' DataFrame, e.g., print the first few rows:
   print(df.head())
-
+"""
 st.write(
     """
     Choose a model on the sidebar and set input parameters.
