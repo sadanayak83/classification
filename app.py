@@ -12,7 +12,7 @@ CSV_FILE_PATH = 'data/winequality.csv'
 DOWNLOAD_FILE_NAME = 'winequality.csv'
 MIME_TYPE = 'text/csv'
 
-st.title("Download Existing CSV File")
+st.write("Download Existing CSV File")
 
 st.write("Click the button below to download the pre-existing test CSV file.")
 
@@ -44,7 +44,7 @@ df = pd.read_csv(uploaded_file)
 
 st.write(
     """
-    Choose a model on the sidebar and set input parameters.
+    Choose a model on the sidebar.
     """
 )
 
