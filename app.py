@@ -7,6 +7,32 @@ from model.models import load_data, train_models
 
 st.title("Multiple Classification Models : Interactive app to demonstrate models")
 
+#Code starts here to download test csv file
+CSV_FILE_PATH = 'data/winequality.csv'
+DOWNLOAD_FILE_NAME = 'winequality.csv'
+MIME_TYPE = 'text/csv'
+
+st.title("Download Existing CSV File")
+
+st.write("Click the button below to download the pre-existing test CSV file.")
+
+try:
+    with open(CSV_FILE_PATH, "rb") as f:
+        csv_bytes = f.read()
+    
+    st.download_button(
+        label="📥 Download CSV File",
+        data=csv_bytes,
+        file_name=DOWNLOAD_FILE_NAME,
+        mime=MIME_TYPE
+    )
+
+except FileNotFoundError:
+    st.error(f"Error: Not able to download the CSV file.")
+    st.info("Please make sure the CSV file exists.")
+
+
+#Code starts here to upload test csv file
 # File uploader widget
 uploaded_file = st.file_uploader("Choose input CSV file", type="csv")
 
