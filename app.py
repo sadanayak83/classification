@@ -3,7 +3,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import io
-from model.models import load_data, train_models
+from model.models import load_data, train_models, evaluate_model, get_confusion_metrics
 
 st.title("Multiple Classification Models : Interactive app to demonstrate models")
 
