@@ -71,6 +71,6 @@ st.subheader('Evaluation Metrics')
 st.write(metrics)
 
 confusion_matrix = []
-confusion_matrix.append(get_confusion_metrics(name, y_test, prediction)
+confusion_matrix.append(get_confusion_metrics(name, y_test, prediction))
 st.subheader('Confusion Matrix')
 st.write(confusion_matrix)
