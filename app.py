@@ -64,3 +64,13 @@ prediction = model.predict(X_test)
 
 st.subheader('Prediction')
 st.write(prediction)
+
+metrics = []
+results.append(evaluate_model(name, model, X_test, y_test, prediction))
+st.subheader('Evaluation Metrics')
+st.write(metrics)
+
+confusion_matrix = []
+confusion_matrix.append(get_confusion_metrics(name, y_test, prediction)
+st.subheader('Confusion Matrix')
+st.write(confusion_matrix)

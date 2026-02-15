@@ -5,6 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix
 import xgboost as xgb
 
 def load_data(data):
@@ -37,3 +38,26 @@ def train_models(X_train, y_train):
     models['XGBoost'].fit(X_train, y_train)
 
     return scaler, models
+
+def evaluate_model(name, model, X_test, y_test, y_pred):
+    y_score = None
+    if hasattr(model, "predict_proba"):
+        y_score = model.predict_proba(X_test)[:, 1]
+    elif hasattr(model, "decision_function"):
+        y_score = model.decision_function(X_test)
+
+    metrics = {
+        "Model": name,
+        "Accuracy": accuracy_score(y_test, y_pred),
+        "AUC": roc_auc_score(y_test, y_score) if y_score is not None else np.nan,
+        "Precision": precision_score(y_test, y_pred, zero_division=0),
+        "Recall": recall_score(y_test, y_pred, zero_division=0),
+        "F1": f1_score(y_test, y_pred, zero_division=0),
+        "MCC": matthews_corrcoef(y_test, y_pred),
+    }
+    return metrics
+
+def get_confusion_metrics(name, y_test, y_pred):
+    rows = []
+    tn, fp, fn, tp = confusion_matrix(y_test, y_pred, labels=[0, 1]).ravel()
+    rows.append({"Model": name, "TN": tn, "FP": fp, "FN": fn, "TP": tp})
