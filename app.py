@@ -50,4 +50,4 @@ X_test_scaled = scaler.transform(X_test)
 
 prediction = model.predict(X_test)
 
-print(prediction)
+#print(prediction)
