@@ -62,6 +62,7 @@ def evaluate_model(name, model, X_test, y_test, y_pred):
     return metrics
 
 def get_confusion_metrics(name, y_test, y_pred):
-    rows = []
+    confusion_matrix_rows = []
     tn, fp, fn, tp = confusion_matrix(y_test, y_pred, labels=[0, 1]).ravel()
-    rows.append({"Model": name, "TN": tn, "FP": fp, "FN": fn, "TP": tp})
+    confusion_matrix_rows.append({"Model": name, "TN": tn, "FP": fp, "FN": fn, "TP": tp})
+    return confusion_matrix_rows
