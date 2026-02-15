@@ -66,7 +66,7 @@ st.subheader('Prediction')
 st.write(prediction)
 
 metrics = []
-results.append(evaluate_model(name, model, X_test, y_test, prediction))
+metrics.append(evaluate_model(name, model, X_test, y_test, prediction))
 st.subheader('Evaluation Metrics')
 st.write(metrics)
 
